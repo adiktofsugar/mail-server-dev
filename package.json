@@ -1,0 +1,19 @@
+{
+  "name": "mail-server-dev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node smtp-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Sean McCollum <anincrediblyshortname@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "nodemailer": "^2.7.0",
+    "nodemailer-sendmail-transport": "^1.0.0",
+    "nodemailer-smtp-transport": "^2.7.2",
+    "smtp-server": "^1.16.1"
+  }
+}
