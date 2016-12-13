@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "install": "bash install.sh",
+    "uninstall": "bash uninstall.sh",
     "start": "node smtp-server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

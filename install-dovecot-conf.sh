@@ -41,6 +41,7 @@ echo "$contents" >> "$HOME/.mail-server-dev/dovecot-conf/local.conf"
 
 if [[ -e "$conf_path/dovecot.conf" ]]; then
     # existing dovecot conf, backup then overwrite
+    echo "Backing up existing dovecot conf at $conf_path/dovecot.conf to $backup_conf_path"
     cp -rf "$conf_path" "$backup_conf_path"
     rm -rf "$conf_path"
 fi

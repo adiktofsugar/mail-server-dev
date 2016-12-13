@@ -14,7 +14,7 @@ var transporter = nodemailer.createTransport(smtpTransport({
 
 transporter.sendMail({
     from: 'anyone@there.com',
-    to: 'adiktofsugar@gmail.com',
+    to: username + '@your-computer.com',
     subject: 'Welcome to mail-server-dev!',
     text: 'Here\'s looking at you, mail client!'
 }, function (error, info) {
