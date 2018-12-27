@@ -1,19 +1,41 @@
 Mail server dev
 ---
 
-smtp-server.js will listen for smtp messages and change the address to $USER@localhost, then send using sendmail
-dovecot will be the mail server, serving from the /var/mail/$USER inbox (no matter what) and putting the other mboxes in ~/mail
+Goal is basically this: http://mocksmtpapp.com/
+...except in node, and free, and generally not as good, hehe.
+
+## Overview of email
+
+To send an email, you send a message to a mail transfer agent (MTA). This is generally configurable in your app framework, like rails, django, etc. The MTA sends the message via SMTP to the destination address. The destination SHOULD have an MTA running that will handle receiving the mail. The destination MTA can save it in whatever way it wants, but it's usually an mbox (which is a special format for email) or a database. To look at your email, you usually use a POP server or an IMAP server, which connects to the destination MTA to pull in the data stored in the mbox / db. Your mail client (outlook, thunderbird, etc) connects to the POP / IMAP server and displays the data in a more presentable way.
+
+## Overview of package
+
+This package is really just the SMTP server. You should configure your app to use this smtp server, so when you send email it'll always go to this one. When you do, it'll change the destination to `$USER@localhost` and send the message. So now you're sending an email to yourself on your computer, which means it's sent to your computers local MTA (through sendmail, which also uses smtp). On Mac, postfix (an MTA) is already installed, and it stores the messages in /var/mail/$USER.
+Dovecot is the IMAP server that pulls the messages out of /var/mail/$USER and stores them in /Users/$USER/.mail-server-dev/mboxes.
 
 ## Installation
-It's probably best to install this package globally rather than have it in a project, since there's no straightforward way I can see to cleanly install / uninstall for only one project, because of the nature of dovecot and plist files.
 
-install.sh will run when you install the package. Runs the following:
+- `git clone` this repo
+- run `npm install`
+
+### Full installation
+
+- run `./install.sh`
+
+This assumes you have brew, git, and node / npm installed, and does this:
 
 - `brew install dovecot`
 - installs dovecot configuration
 - `sudo brew services dovecot start`, which will trigger a password request and make dovecot actually start running.
 - creates a local plist for smtp-server.js to start running
 - sends a test message
+
+### Just smtp server
+
+- run `npm start`
+
+This only starts the SMTP server. So you can point to this server and it will use sendmail to send it to you, but then it's up to you to look at the mail.
+
 
 ## Uninstallation
 uninstall.sh will run when you uninstall the package. Runs the following:
